@@ -958,7 +958,11 @@ typedef struct {
 #   define TCL_INDEX_NONE (-1)
 #endif
 #ifndef TCL_INDEX_END
+#if TCL_MAJOR_VERSION > 8
+#   define TCL_INDEX_END ((((TkSizeT)-1)>>1) - 1)
+#else
 #   define TCL_INDEX_END ((TkSizeT)-2)
+#endif
 #endif
 
 /*

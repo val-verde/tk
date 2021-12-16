@@ -231,6 +231,9 @@ TkGetIntForIndex(
 	*indexPtr = TCL_INDEX_NONE;
 	return TCL_OK;
     }
+    if (end == TCL_INDEX_NONE) {
+	end = TCL_INDEX_END;
+    }
     if (Tcl_GetIntForIndex(NULL, indexObj, end + lastOK, indexPtr) != TCL_OK) {
 	const char *value = Tcl_GetString(indexObj);
 	if (!*value) {
@@ -240,9 +243,9 @@ TkGetIntForIndex(
 	return TCL_ERROR;
     }
 #if TCL_MAJOR_VERSION < 9
-    if (*indexPtr < -1) {
+    if ((*indexPtr < -1) && ((end != TCL_INDEX_END) || Tcl_GetString(indexObj)[0] != 'e')) {
 	*indexPtr = TCL_INDEX_NONE;
-    } else if (end >= -1)
+    } else if (end != TCL_INDEX_END)
 #endif
     if ((*indexPtr + 1) > (end + 1)) {
 	*indexPtr = end + 1;

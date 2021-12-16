@@ -118,7 +118,7 @@ UnderlineParseProc(
     obj.bytes = (char *)value;
     obj.length = strlen(value);
     obj.typePtr = NULL;
-    code = TkGetIntForIndex(&obj, TCL_INDEX_END, 0, &underline);
+    code = TkGetIntForIndex(&obj, TCL_INDEX_NONE, 0, &underline);
     if (code == TCL_OK) {
 	if (underline == TCL_INDEX_NONE) {
 	    underline = INT_MIN;

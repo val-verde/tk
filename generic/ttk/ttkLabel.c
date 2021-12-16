@@ -15,7 +15,7 @@
  * This element displays a textual label in the foreground color.
  *
  * Optionally underlines the mnemonic character if the -underline resource
- * is present and >= 0.
+ * is present and != INT_MIN.
  */
 
 typedef struct {
@@ -175,7 +175,7 @@ static void TextDraw(TextElement *text, Tk_Window tkwin, Drawable d, Ttk_Box b)
 	    text->textLayout, b.x, b.y, 0/*firstChar*/, -1/*lastChar*/);
 
     if (text->underlineObj != NULL) {
-	TkGetIntForIndex(text->underlineObj, TCL_INDEX_END, 0, &underline);
+	TkGetIntForIndex(text->underlineObj, TCL_INDEX_NONE, 0, &underline);
 	if (underline != TCL_INDEX_NONE) {
 	    if ((size_t)underline > (size_t)TCL_INDEX_END>>1) {
 		underline++;
