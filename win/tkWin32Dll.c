@@ -123,7 +123,7 @@ DllMain(
 	 */
 
 #ifdef HAVE_NO_SEH
-#   ifdef _WIN64
+#   if defined __x86_64__ && defined _WIN64
 	__asm__ __volatile__ (
 
 	    /*
@@ -193,7 +193,7 @@ DllMain(
 	    "%rax", "%rbx", "%rcx", "%rdx", "%rsi", "%rdi", "memory"
 	);
 
-#   else
+#   elif defined __i386__ && defined _WIN32
 	__asm__ __volatile__ (
 
 	    /*
@@ -264,6 +264,8 @@ DllMain(
 	    "%eax", "%ebx", "%ecx", "%edx", "%esi", "%edi", "memory"
 	);
 
+#   else
+       TkFinalize(NULL);
 #   endif
 #else /* HAVE_NO_SEH */
 	__try {
